@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/Usualresidence_0.js"></script>
+        <script src="data/centroids_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:14, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_Usualresidence_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LGA_CODE16'] !== null ? Autolinker.link(String(feature.properties['LGA_CODE16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>LGA_NAME16</strong><br />' + (feature.properties['LGA_NAME16'] !== null ? Autolinker.link(String(feature.properties['LGA_NAME16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STE_CODE16'] !== null ? Autolinker.link(String(feature.properties['STE_CODE16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">STE_NAME16</th>\
+                        <td>' + (feature.properties['STE_NAME16'] !== null ? Autolinker.link(String(feature.properties['STE_NAME16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREASQKM16'] !== null ? Autolinker.link(String(feature.properties['AREASQKM16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ALL_2016POWNZ</strong><br />' + (feature.properties['ALL_2016POWNZ'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWNZ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016POWTOTAL'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWTOTAL'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ALL_2016URNZ</strong><br />' + (feature.properties['ALL_2016URNZ'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URNZ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016URTOTAL'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URTOTAL'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ALL_2016POWNZPERCENT</strong><br />' + (feature.properties['ALL_2016POWNZPERCENT'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWNZPERCENT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ALL_2016URNZPERCENT</strong><br />' + (feature.properties['ALL_2016URNZPERCENT'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URNZPERCENT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016POWURDIFFERENCE'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWURDIFFERENCE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ALL_2016POWNZRANK</strong><br />' + (feature.properties['ALL_2016POWNZRANK'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWNZRANK'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ALL_2016URNZRANK</strong><br />' + (feature.properties['ALL_2016URNZRANK'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URNZRANK'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Usualresidence_0_0() {
+            return {
+                pane: 'pane_Usualresidence_0',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 0.2, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,255,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Usualresidence_0');
+        map.getPane('pane_Usualresidence_0').style.zIndex = 400;
+        map.getPane('pane_Usualresidence_0').style['mix-blend-mode'] = 'normal';
+        var layer_Usualresidence_0 = new L.geoJson(json_Usualresidence_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Usualresidence_0',
+            layerName: 'layer_Usualresidence_0',
+            pane: 'pane_Usualresidence_0',
+            onEachFeature: pop_Usualresidence_0,
+            style: style_Usualresidence_0_0,
+        });
+        bounds_group.addLayer(layer_Usualresidence_0);
+        map.addLayer(layer_Usualresidence_0);
+        function pop_centroids_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LGA_CODE16'] !== null ? Autolinker.link(String(feature.properties['LGA_CODE16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LGA_NAME16'] !== null ? Autolinker.link(String(feature.properties['LGA_NAME16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STE_CODE16'] !== null ? Autolinker.link(String(feature.properties['STE_CODE16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STE_NAME16'] !== null ? Autolinker.link(String(feature.properties['STE_NAME16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREASQKM16'] !== null ? Autolinker.link(String(feature.properties['AREASQKM16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016POWNZ'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWNZ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016POWTOTAL'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWTOTAL'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016URNZ'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URNZ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016URTOTAL'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URTOTAL'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016POWNZPERCENT'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWNZPERCENT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016URNZPERCENT'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URNZPERCENT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016POWURDIFFERENCE'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWURDIFFERENCE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016POWNZRANK'] !== null ? Autolinker.link(String(feature.properties['ALL_2016POWNZRANK'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALL_2016URNZRANK'] !== null ? Autolinker.link(String(feature.properties['ALL_2016URNZRANK'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_centroids_1_0(feature) {
+            if (feature.properties['ALL_2016URNZPERCENT'] >= 0.000000 && feature.properties['ALL_2016URNZPERCENT'] <= 0.001000 ) {
+                return {
+                pane: 'pane_centroids_1',
+                radius: 6.000000000000002,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,1,84,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['ALL_2016URNZPERCENT'] >= 0.001000 && feature.properties['ALL_2016URNZPERCENT'] <= 3.000000 ) {
+                return {
+                pane: 'pane_centroids_1',
+                radius: 6.000000000000002,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(58,82,139,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['ALL_2016URNZPERCENT'] >= 3.000000 && feature.properties['ALL_2016URNZPERCENT'] <= 5.000000 ) {
+                return {
+                pane: 'pane_centroids_1',
+                radius: 6.000000000000002,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(32,144,141,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['ALL_2016URNZPERCENT'] >= 5.000000 && feature.properties['ALL_2016URNZPERCENT'] <= 7.000000 ) {
+                return {
+                pane: 'pane_centroids_1',
+                radius: 6.000000000000002,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(93,201,98,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['ALL_2016URNZPERCENT'] >= 7.000000 && feature.properties['ALL_2016URNZPERCENT'] <= 8.740000 ) {
+                return {
+                pane: 'pane_centroids_1',
+                radius: 6.000000000000002,
+                stroke: false,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,231,37,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_centroids_1');
+        map.getPane('pane_centroids_1').style.zIndex = 401;
+        map.getPane('pane_centroids_1').style['mix-blend-mode'] = 'normal';
+        var layer_centroids_1 = new L.geoJson(json_centroids_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_centroids_1',
+            layerName: 'layer_centroids_1',
+            pane: 'pane_centroids_1',
+            onEachFeature: pop_centroids_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_centroids_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_centroids_1);
+        map.addLayer(layer_centroids_1);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'% population born in NZ<br /><table><tr><td style="text-align: center;"><img src="legend/centroids_1_00.png" /></td><td>0%</td></tr><tr><td style="text-align: center;"><img src="legend/centroids_1_31.png" /></td><td>>3%</td></tr><tr><td style="text-align: center;"><img src="legend/centroids_1_352.png" /></td><td>3-5%</td></tr><tr><td style="text-align: center;"><img src="legend/centroids_1_573.png" /></td><td>5-7%</td></tr><tr><td style="text-align: center;"><img src="legend/centroids_1_74.png" /></td><td>7%+</td></tr></table>': layer_centroids_1,'<img src="legend/Usualresidence_0.png" /> Local government areas': layer_Usualresidence_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
